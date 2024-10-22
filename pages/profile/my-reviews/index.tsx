@@ -17,23 +17,6 @@ interface IReview {
     star: string;
 }
 
-const REVIEW_LIST = [
-    {
-        id: "1",
-        star: "⭐⭐⭐⭐⭐",
-        username: "👤 nitishbiswas",
-        exchange: "PayPal USD - N পার্সোনাল BDT",
-        comment: "Fast and reliable exchange. Very satisfied with the service!"
-    },
-    {
-        id: "2",
-        star: "⭐⭐⭐⭐",
-        username: "👤 nitishbiswas",
-        exchange: "Perfect Money USD - B পার্সোনাল BDT",
-        comment: "Great experience overall. The exchange took a bit longer than expected, but it was smooth."
-    },
-];
-
 const STAR = [
     {
         label: "⭐⭐⭐⭐⭐",
@@ -60,13 +43,9 @@ const MyReviews = () => {
     const [star, setStar] = useState("⭐⭐⭐⭐⭐");
     const [exchange, setExchange] = useState("");
     const [comment, setComment] = useState("");
+    const [reviewList, setReviewList] = useState([]);
 
     const columns = [
-        // {
-        //     name: "Username",
-        //     selector: (row: IReview) => row?.username,
-        //     sortable: true,
-        // },
         {
             name: "Exchange",
             selector: (row: IReview) => row?.exchange,
@@ -128,16 +107,16 @@ const MyReviews = () => {
                     </div>
                     <div className='h-[1px] bg-gray-200/20 w-full my-[10px]' />
 
-                    {REVIEW_LIST?.length > 0 ? <div className='w-full'>
+                    <div className='w-full'>
                         <DataTable
                             columns={columns}
-                            data={REVIEW_LIST}
+                            data={reviewList}
                             customStyles={customStyles}
                             persistTableHead
                             responsive
                         />
                     </div>
-                        :
+                    {reviewList?.length === 0 &&
                         <div className='w-full flex items-center justify-center'>
                             <div className='border-[0.5px] border-indigo-300 bg-indigo-200 p-[10px] text-secondary'> Still no have testimonials. <span className='text-blue-600 underline'>Click here</span> to submit testimonial.</div>
                         </div>
