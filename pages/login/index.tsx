@@ -100,7 +100,7 @@ const Login = () => {
                     </div>
                     <CustomButton onClick={handleLogin} title='Login' size='large' className='w-full my-[20px]' />
                     <div className='w-full text-center text-small text-gray-300'>
-                        Don't have an account? <Link href={"/signup"} className='text-primary hover:text-error'>Sign Up</Link>
+                        Don&apos;t have an account? <Link href={"/signup"} className='text-primary hover:text-error'>Sign Up</Link>
                     </div>
                 </div>
             </ParentDiv>

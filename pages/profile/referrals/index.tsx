@@ -27,15 +27,15 @@ const MyReferrals = () => {
         }
     }
 
+    useEffect(() => {
+        seleteUrl();
+    }, []);
+
 
     if (!authToken) {
         route.push('/login');
         return <Loading />;
     }
-
-    useEffect(() => {
-        seleteUrl();
-    }, []);
 
     return (
         <div className='w-full py-[60px] bg-[#f7f7f7] min-h-[50vh]'>

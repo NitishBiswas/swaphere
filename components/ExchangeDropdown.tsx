@@ -30,7 +30,7 @@ const ExchangeDropdown = ({ data, onChange, value, type }: IExDrop) => {
         } else {
             setFilteredValue(data);
         }
-    }, [searchText]);
+    }, [searchText, data]);
 
     return (
         <div ref={exDropRef} className='relative w-full'>

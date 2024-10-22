@@ -14,6 +14,7 @@ import { ADV_CASH, BINANCE, FIVERR, PAYEER, PAYPAL, PERFECT_MONEY, REDOTPAY, WEB
 import Image from 'next/image'
 import DataTable from 'react-data-table-component'
 import { customStyles } from '@/assets/data/tableStyle'
+import Head from 'next/head'
 
 const PROCESSING_EXCHANGES = [
     {
@@ -360,6 +361,9 @@ const Home = () => {
 
     return (
         <div className='-mt-[1px] bg-[#f7f7f7] pb-[40px]'>
+            <Head>
+                <title>SwapHere</title>
+            </Head>
             <Hero />
             <ParentDiv>
                 <div className='w-full mt-[60px] mb-[20px] p-[20px] md:p-[30px] border-[2px] border-primary'>

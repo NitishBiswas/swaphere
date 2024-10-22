@@ -6,7 +6,7 @@ const Affiliate = () => {
     return (
         <div className='w-full py-[60px] bg-[#f7f7f7] min-h-[50vh]'>
             <Head>
-                <title>SwapHere</title>
+                <title>Affiliate | SwapHere</title>
             </Head>
             <ParentDiv>
                 <div className='w-full p-[10px] lg:p-[20px] bg-white shadow flex flex-col gap-[10px]'>
@@ -18,7 +18,7 @@ const Affiliate = () => {
                     <div className='text-small text-gray-300'>When a user enters through your link we automatically remember your id number in our system. If the user has requested to exchange pay its part and we successfully complete the exchange you get your profit by 2% of the difference between the two amounts. Example: If the user decides to exchange 100 dollars and our exchange rate is 1 = 0.95, users receive 95 dollars and you take 2% of 5</div>
                     <div className='text-medium text-gray-200 font-[500]'>How to use Affiliate Program:</div>
                     <div className='text-small text-gray-300 ml-[20px]'>1. Login with your account</div>
-                    <div className='text-small text-gray-300 ml-[20px]'>2. Go to tab "Referrals"</div>
+                    <div className='text-small text-gray-300 ml-[20px]'>2. Go to tab &quot;Referrals&quot;</div>
                     <div className='text-small text-gray-300 ml-[20px]'>3. Copy link and share it to your friends, social network or other place and wait to get your profits</div>
                 </div>
             </ParentDiv>

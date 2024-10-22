@@ -57,7 +57,7 @@ const CustomButton = ({
         } else {
             setCustomColor(disabled ? "bg-gray-500 cursor-not-allowed" : "hover:bg-primary/90 bg-primary shadow-lg");
         }
-    }, [color]);
+    }, [color, disabled]);
 
     useEffect(() => {
         if (size) {

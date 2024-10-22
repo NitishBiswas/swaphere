@@ -13,7 +13,7 @@ const DataDeletionPolicy = () => {
                     <div className='text-h6 md:text-h5 font-[500] text-gray-200'>User Data Deletion Policy</div>
                     <div className='h-[1px] bg-gray-200/20 w-full my-[10px]' />
 
-                    <div className='text-small text-gray-300'>At $wapHere safeguarding our users' personal information is paramount. We are dedicated to upholding the highest standards of data protection and compliance with relevant regulations, such as the General Data Protection Regulation (GDPR) and the California Consumer Privacy Act (CCPA). This Data Deletion Policy delineates the procedures for the deletion of user data collected through our app, available on the Google Play Store.</div>
+                    <div className='text-small text-gray-300'>At $wapHere safeguarding our users&apos; personal information is paramount. We are dedicated to upholding the highest standards of data protection and compliance with relevant regulations, such as the General Data Protection Regulation (GDPR) and the California Consumer Privacy Act (CCPA). This Data Deletion Policy delineates the procedures for the deletion of user data collected through our app, available on the Google Play Store.</div>
                     <div className='text-medium text-gray-200 font-[500]'>Types of Data Collected</div>
                     <div className='text-small text-gray-300'>Our app collects the following types of user data:</div>
                     <div className='text-small text-gray-300 ml-[20px]'>1. Usernames</div>
@@ -21,7 +21,7 @@ const DataDeletionPolicy = () => {
                     <div className='text-small text-gray-300 ml-[20px]'>3. Phone Numbers</div>
                     <div className='text-medium text-gray-200 font-[500]'>Data Deletion Procedures</div>
                     <div className='text-small text-gray-300'>Users seeking to delete their personal data collected by [Your App Name] can do so by contacting our support team. Here are the options for requesting data deletion:</div>
-                    <div className='text-small text-gray-300'><span className='font-[700]'>Email Support: </span>Users can reach out to our support team via email to request data deletion. Our support agents will respond to emails promptly and facilitate the deletion of personal data as per the user's request.</div>
+                    <div className='text-small text-gray-300'><span className='font-[700]'>Email Support: </span>Users can reach out to our support team via email to request data deletion. Our support agents will respond to emails promptly and facilitate the deletion of personal data as per the user&apos;s request.</div>
                     <div className='text-medium text-gray-200 font-[500]'>Retention Period</div>
                     <div className='text-small text-gray-300'>We retain user data only for as long as necessary to fulfill the purposes outlined in our Privacy Policy or as mandated by law. Once the data is no longer required for the specified purposes, we will securely delete or anonymize it to prevent unauthorized access or use.</div>
                     <div className='text-medium text-gray-200 font-[500]'>Third-Party Services</div>
