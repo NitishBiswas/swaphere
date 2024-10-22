@@ -1,9 +1,13 @@
 import CustomButton from '@/components/CustomButton'
 import CustomDropdown from '@/components/CustomDropdown';
+import Loading from '@/components/Loading';
 import ParentDiv from '@/components/ParentDiv'
 import ParentModal from '@/components/ParentModal';
+import { selectAuthToken } from '@/redux/features/authSlice';
 import { Eye, EyeSlash } from 'iconsax-react';
+import { useRouter } from 'next/router';
 import React, { useState } from 'react'
+import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
 const GATEWAY_LIST = [
@@ -67,6 +71,14 @@ const Wallet = () => {
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
+
+    const route = useRouter();
+    const authToken: string | null = useSelector(selectAuthToken);
+
+    if (!authToken) {
+        route.push('/login');
+        return <Loading />;
+    }
 
     return (
         <div className='w-full py-[60px] bg-[#f7f7f7] min-h-[50vh]'>

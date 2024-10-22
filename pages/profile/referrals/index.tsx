@@ -1,12 +1,18 @@
 import CustomButton from '@/components/CustomButton';
+import Loading from '@/components/Loading';
 import ParentDiv from '@/components/ParentDiv'
+import { selectAuthToken } from '@/redux/features/authSlice';
 import Link from 'next/link'
+import { useRouter } from 'next/router';
 import React, { useEffect, useRef } from 'react'
+import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
 const MyReferrals = () => {
     const referralUrl = "https://swaphere.com/ref/3113";
     const textRef = useRef(null);
+    const route = useRouter();
+    const authToken: string | null = useSelector(selectAuthToken);
 
     const seleteUrl = () => {
         if (textRef.current) {
@@ -18,6 +24,12 @@ const MyReferrals = () => {
                 selection.addRange(range);
             }
         }
+    }
+
+
+    if (!authToken) {
+        route.push('/login');
+        return <Loading />;
     }
 
     useEffect(() => {

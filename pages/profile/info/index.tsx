@@ -1,8 +1,20 @@
+import Loading from '@/components/Loading';
 import ParentDiv from '@/components/ParentDiv'
+import { selectAuthToken } from '@/redux/features/authSlice';
 import moment from 'moment'
+import { useRouter } from 'next/router';
 import React from 'react'
+import { useSelector } from 'react-redux';
 
 const ProfileInfo = () => {
+    const route = useRouter();
+    const authToken: string | null = useSelector(selectAuthToken);
+
+    if (!authToken) {
+        route.push('/login');
+        return <Loading />;
+    }
+
     return (
         <div className='w-full py-[60px] bg-[#f7f7f7] min-h-[50vh]'>
             <ParentDiv>

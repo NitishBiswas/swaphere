@@ -1,14 +1,20 @@
 import CustomButton from '@/components/CustomButton';
+import Loading from '@/components/Loading';
 import ParentDiv from '@/components/ParentDiv'
+import { selectAuthToken } from '@/redux/features/authSlice';
 import { Eye, EyeSlash } from 'iconsax-react';
 import Link from 'next/link'
+import { useRouter } from 'next/router';
 import React, { useState } from 'react'
+import { useSelector } from 'react-redux';
 
 const Settings = () => {
     const [currentPassword, setCurrentPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [showPassword, setShowPassword] = useState<number[]>([]);
+    const route = useRouter();
+    const authToken: string | null = useSelector(selectAuthToken);
 
     const togglePasswordVisibility = (id: number) => {
         if (showPassword?.includes(id)) {
@@ -17,6 +23,11 @@ const Settings = () => {
             setShowPassword([...showPassword, id]);
         }
     };
+
+    if (!authToken) {
+        route.push('/login');
+        return <Loading />;
+    }
 
     return (
         <div className='w-full py-[60px] bg-[#f7f7f7] min-h-[50vh]'>

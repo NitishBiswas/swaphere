@@ -2,12 +2,16 @@ import { customStyles } from '@/assets/data/tableStyle'
 import CustomButton from '@/components/CustomButton'
 import CustomDropdown from '@/components/CustomDropdown'
 import DeleteModal from '@/components/DeleteModal'
+import Loading from '@/components/Loading'
 import ParentDiv from '@/components/ParentDiv'
 import ParentModal from '@/components/ParentModal'
+import { selectAuthToken } from '@/redux/features/authSlice'
 import { Add } from 'iconsax-react'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component';
+import { useSelector } from 'react-redux'
 
 interface IReview {
     id: string;
@@ -44,6 +48,8 @@ const MyReviews = () => {
     const [exchange, setExchange] = useState("");
     const [comment, setComment] = useState("");
     const [reviewList, setReviewList] = useState([]);
+    const route = useRouter();
+    const authToken: string | null = useSelector(selectAuthToken);
 
     const columns = [
         {
@@ -92,6 +98,12 @@ const MyReviews = () => {
             setComment("");
         }
     }, [row]);
+
+
+    if (!authToken) {
+        route.push('/login');
+        return <Loading />;
+    }
 
     return (
         <div className='w-full py-[60px] bg-[#f7f7f7] min-h-[50vh]'>
