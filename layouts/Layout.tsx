@@ -1,7 +1,6 @@
 import { useRouter } from "next/router";
 import React from "react";
 import DashboardLayout from "./dashboard/DashboardLayout";
-import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
@@ -11,8 +10,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     const pathName = route.pathname;
 
     if (
-        routesWithNoSidebar.includes(pathName) ||
-        ["/login", "/signup", "/forgot-password", "/otp", "/reset-password"].includes(pathName)
+        routesWithNoSidebar.includes(pathName)
     ) {
         return (
             <div className="bg-white font-poppins">

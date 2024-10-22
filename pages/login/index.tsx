@@ -1,195 +1,106 @@
-import React, { useState } from 'react';
-import Head from 'next/head';
-import AUTH from '@/assets/images/auth.jpg';
-import Image from 'next/image';
-import HERO from '@/assets/images/header-logo.svg';
-import CustomInput from '@/components/CustomInput';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import { toast } from 'react-toastify';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
-import { login } from '@/redux/features/authSlice';
-import { useSendUserAuthOtpMutation, useUserLoginMutation } from '@/redux/api/authApi/authApi';
-import { useDispatch } from 'react-redux';
+import CheckboxButton from '@/components/CheckboxButton';
+import CustomButton from '@/components/CustomButton';
 import Loading from '@/components/Loading';
-import Captcha from '@/components/Captcha';
-import OTPInput from 'react-otp-input';
+import ParentDiv from '@/components/ParentDiv'
+import { login } from '@/redux/features/authSlice';
+import { Eye, EyeSlash } from 'iconsax-react';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 
 const Login = () => {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
+    const [rememberMe, setRememberMe] = useState(true);
+    const [loading, setLoading] = useState(false);
     const route = useRouter();
-    const [loginUser, loginUserResult] = useUserLoginMutation();
-    const [sendUserAuthOtp, sendUserAuthOtpResult] = useSendUserAuthOtpMutation();
     const dispatch = useDispatch();
-    const [reCaptcha, setReCaptcha] = useState<string | null>(null);
-    const [otp, setOtp] = useState('');
-    const next = localStorage.getItem('loginNext');
 
-    const handleSendOtp = async (e: any) => {
-        e.preventDefault();
-        try {
-            const userData = localStorage.getItem('userLoginData');
-            let user = null;
-            if (userData) {
-                user = JSON.parse(userData);
-            }
-            if (otp?.length === 4 && user) {
-                const res = await loginUser({ ...user?.data, password: user?.password, otp }).unwrap();
-                dispatch(login({ token: res?.data?.token, id: res?.data?.id }));
-                toast.success("Login successful!");
-                localStorage.removeItem('userLoginData');
-                localStorage.removeItem('loginNext');
-                route.push('/');
-            } else {
-                toast.error('Invalid OTP!');
-            }
-        } catch (error: any) {
-            console.log(error);
-            toast.error(error?.data?.message || error?.message || "Something went wrong!");
-        }
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
     };
 
-    //handle email and password login
-    const formik = useFormik({
-        initialValues: {
-            emailOrPhone: '',
-            password: '',
-        },
-        validationSchema: Yup.object({
-            emailOrPhone: Yup.string().required('Email or Phone is required!'),
-            password: Yup.string().required('Password is required!'),
-        }),
-        onSubmit: async (values) => {
-            // Regular expression for email and phone
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            const phonePattern = /^\d{10,15}$/; // Assuming phone numbers are 10 to 15 digits long
+    const handleLogin = async () => {
+        if (!email) {
+            toast.error("Email is required");
+            return;
+        }
+        if (!password) {
+            toast.error("Password is required");
+            return;
+        }
 
-            // Determine if the input is an email or phone
-            const isEmail = emailPattern.test(values.emailOrPhone);
-            const isPhone = phonePattern.test(values.emailOrPhone);
-            let data = {};
-            if (isEmail) {
-                data = { email: values.emailOrPhone };
-            } else if (isPhone) {
-                data = { phone: values.emailOrPhone };
-            }
-            if (reCaptcha) {
-                try {
-                    await sendUserAuthOtp(data).unwrap();
-                    localStorage.setItem('userLoginData', JSON.stringify({ ...values, data }));
-                    localStorage.setItem('loginNext', 'next');
-                } catch (error: any) {
-                    console.log(error);
-                    toast.error(error?.data?.message || "Something went wrong!");
-                }
+        setLoading(true);
+        try {
+            if (email === "test@gmail.com" && password === "1234") {
+                setTimeout(() => {
+                    dispatch(login({ token: "nitishbiswas" }));
+                    setLoading(false);
+                    toast.success("Logged in successfully");
+                    route.push('/');
+                }, 3000);
             } else {
-                toast.error("Please verify captcha!");
+                toast.error("Invalid credentials");
+                setLoading(false);
             }
-        },
-    });
-
-    const {
-        values,
-        errors,
-        touched,
-        setFieldValue,
-        handleChange,
-        handleBlur,
-        handleSubmit,
-    } = formik;
+        } catch (error: any) {
+            setLoading(false);
+            toast.error(error?.message || error?.data?.message || "Something went wrong!");
+        }
+    }
 
     return (
-        <div className='w-full h-full overflow-hidden'>
-            <Head>
-                <title>Login | Quiickpage</title>
-            </Head>
-            <div className='w-full h-full flex overflow-hidden'>
-                <div className='hidden md:flex w-full md:w-[50%] h-full overflow-hidden'>
-                    <Image src={AUTH} alt='login' className='w-full h-[100vh] object-cover overflow-hidden' />
-                </div>
-                <div className='w-full md:w-[50%] h-[100vh] px-[20px] custom-scrollbar overflow-y-auto py-[40px]'>
-                    <div className='w-full flex flex-col items-center justify-center'>
-                        <div className='text-h4 font-[600] text-center'>Sign In</div>
-                        <div className='w-full h-[24px] flex justify-center items-center relative my-[20px]'>
-                            <div className='h-[1px] w-full bg-[#000]/10 absolute' />
-                            <Image src={HERO} alt='hero' className='bg-white z-10 px-[20px]' />
-                        </div>
-                        <div className='w-full md:w-[50%]'>
-                            {next ? <form className="w-full flex flex-col gap-[24px] mt-[30px]">
-                                <OTPInput
-                                    value={otp}
-                                    onChange={setOtp}
-                                    numInputs={4}
-                                    containerStyle={{
-                                        display: 'flex',
-                                        justifyContent: 'space-between',
-                                        alignItems: 'center',
-                                    }}
-                                    renderInput={(props, index) => <input
-                                        {...props}
-                                        maxLength={1}
-                                        type="tel"
-                                        inputMode="numeric"
-                                        key={index}
-                                        style={{
-                                            width: '48px',
-                                            height: '48px',
-                                            fontSize: '20px',
-                                            textAlign: 'center',
-                                            borderRadius: '6px',
-                                            border: '1px solid #c4c4c4',
-                                            color: '#4F4F4F',
-                                        }}
-                                    />}
-                                />
-                                <button
-                                    className={`w-full relative text-nowrap text-white z-[1] overflow-hidden flex items-center justify-center gap-[6px] rounded-[6px] bg-primary h-[40px] text-small font-[400] py-[10px] px-[20px]`}
-                                    onClick={handleSendOtp}
-                                >
-                                    Sign In
-                                </button>
-                            </form> : <form onSubmit={handleSubmit} className="w-full flex flex-col gap-[20px] mt-[30px]">
-                                <CustomInput
-                                    label="Phone Number or Email Address"
-                                    type="text"
-                                    fieldTitle="emailOrPhone"
-                                    setFieldValue={setFieldValue}
-                                    value={values.emailOrPhone}
-                                    touched={touched.emailOrPhone}
-                                    error={errors.emailOrPhone}
-                                    handleBlur={handleBlur}
-                                />
-                                <CustomInput
-                                    label="Password"
-                                    type="password"
-                                    fieldTitle="password"
-                                    setFieldValue={setFieldValue}
-                                    value={values.password}
-                                    touched={touched.password}
-                                    error={errors.password}
-                                    handleBlur={handleBlur}
-                                />
-                                <div className='w-full flex items-center justify-end gap-[5px]'>
-                                    <Link href={"/forgot-password"} className='text-error cursor-pointer text-small underline'>
-                                        Forgot Password ?
-                                    </Link>
-                                </div>
-                                <div className='w-full'>
-                                    <Captcha setCaptcha={setReCaptcha} />
-                                </div>
-                                <button
-                                    className={`w-full relative text-nowrap text-white z-[1] overflow-hidden flex items-center justify-center gap-[6px] rounded-[6px] bg-primary h-[40px] text-small font-[400] py-[10px] px-[20px]`}
-                                    onClick={() => {}}
-                                >
-                                    Next
-                                </button>
-                                <div className='w-full text-center text-normal cursor-pointer mt-[20px]'>New to App? <Link href="/signup" className='text-primary font-bold underline ml-[12px]'>Sign Up</Link></div>
-                            </form>}
+        <div className='w-full py-[60px] bg-[#f7f7f7] min-h-[50vh]'>
+            <ParentDiv>
+                <div className='w-full sm:w-[400px] lg:w-[600px] p-[10px] lg:p-[20px] bg-white shadow flex flex-col gap-[20px]'>
+                    <div className='w-full text-h5 lg:text-h4 font-[900] text-primary text-center my-[30px]'>Login with Your Account</div>
+                    <div className='w-full flex flex-col gap-[10px]'>
+                        <div className='text-small text-gray-300 font-[700]'>Email</div>
+                        <input
+                            type="text"
+                            className={`flex-grow text-primary border-[1px] border-primary/20 placeholder:text-gray-400 p-[12px] rounded-[6px] w-full focus:border-primary focus:outline text-medium`}
+                            placeholder={"Type here your email"}
+                            onChange={e => setEmail(e.target.value)}
+                            value={email}
+                        />
+                    </div>
+                    <div className='w-full flex flex-col gap-[10px]'>
+                        <div className='text-small text-gray-300 font-[700]'>Your Password</div>
+                        <div className='w-full relative'>
+                            <input
+                                type={showPassword ? "text" : "password"}
+                                className={`flex-grow text-primary border-[1px] border-primary/20 placeholder:text-gray-400 p-[12px] rounded-[6px] w-full focus:border-primary focus:outline text-medium`}
+                                placeholder={"Write your current password"}
+                                onChange={e => setPassword(e.target.value)}
+                                value={password}
+                            />
+                            <button
+                                type="button"
+                                className="outline-none focus:outline-none text-[#747474] absolute top-[30%] right-3 z-10 cursor-pointer"
+                                onClick={togglePasswordVisibility}
+                            >
+                                {showPassword ? (
+                                    <Eye size={24} />
+                                ) : (
+                                    <EyeSlash size={24} />
+                                )}
+                            </button>
                         </div>
                     </div>
+                    <div className='w-full flex items-center justify-between gap-[20px]'>
+                        <CheckboxButton title='Remember Me' checked={rememberMe} setChecked={setRememberMe} />
+                        <Link href={"/forgot-password"} className='hover:text-primary'>Forgot Password?</Link>
+                    </div>
+                    <CustomButton onClick={handleLogin} title='Login' size='large' className='w-full my-[20px]' />
+                    <div className='w-full text-center text-small text-gray-300'>
+                        Don't have an account? <Link href={"/signup"} className='text-primary hover:text-error'>Sign Up</Link>
+                    </div>
                 </div>
-            </div>
-            {(loginUserResult.isLoading || sendUserAuthOtpResult.isLoading) && <Loading />}
+            </ParentDiv>
+            {loading && <Loading />}
         </div>
     )
 }

@@ -132,7 +132,7 @@ const Header = () => {
                                 );
                             })}
                         </div>
-                        {!authToken ? <div className='relative' ref={sidebarRef}>
+                        {authToken ? <div className='relative' ref={sidebarRef}>
                             <div onClick={() => setProfileSidebarOpen(!profileSidebarOpen)} className='flex items-center gap-[5px] cursor-pointer text-small text-primary font-[600]'>
                                 <ProfileCircle size="18" />
                                 <GradientText text={"Nitish Biswas"} className='text-medium' />
@@ -141,7 +141,7 @@ const Header = () => {
                             {profileSidebarOpen && <div className='absolute right-0 top-[87px]'>
                                 <ProfileSideBar onClose={() => setProfileSidebarOpen(false)} />
                             </div>}
-                        </div> : <Link href={"/authentication/login"}>
+                        </div> : <Link href={"/login"}>
                             <CustomButton
                                 title='Sign In'
                                 size='medium'

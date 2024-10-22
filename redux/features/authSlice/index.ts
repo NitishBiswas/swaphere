@@ -11,7 +11,7 @@ const authSlice = createSlice({
     name: "auth",
     initialState,
     reducers: {
-        login(state, action: PayloadAction<{ id: number, token: string }>) {
+        login(state, action: PayloadAction<{ token: string }>) {
             state.token = action.payload.token;
             const expiresIn = 12 * 60 * 60 * 1000; // 12 hours in milliseconds
             state.expiresAt = Date.now() + expiresIn;
