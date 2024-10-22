@@ -39,7 +39,9 @@ export default function App({ Component, ...rest }: AppProps) {
 
   return (
     <Provider store={store}>
-      <PersistGate loading={<Loading />} persistor={persistor}>
+      <PersistGate loading={<div className='w-screen h-screen bg-white'>
+        <Loading />
+      </div>} persistor={persistor}>
         <Layout>
           <Component {...props} />
           <ToastContainer

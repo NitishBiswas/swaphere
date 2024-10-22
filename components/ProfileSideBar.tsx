@@ -13,7 +13,7 @@ interface IProfileSidebar {
 const PROFILE_SIDEBAR: IProfileSidebar[] = [
     {
         title: 'Profile Info',
-        path: '/profile',
+        path: '/profile/info',
     },
     {
         title: 'My Exchanges',
