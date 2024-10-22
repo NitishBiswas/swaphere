@@ -1,111 +1,112 @@
-import React from 'react';
-import Head from 'next/head';
+import CheckboxButton from '@/components/CheckboxButton';
+import CustomButton from '@/components/CustomButton';
+import Loading from '@/components/Loading';
+import ParentDiv from '@/components/ParentDiv'
+import { Eye, EyeSlash } from 'iconsax-react';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import Image from 'next/image';
-import AUTH from '@/assets/images/auth.jpg';
-import HERO from '@/assets/images/header-logo.svg';
-import CustomInput from '@/components/CustomInput';
+import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { useResetPasswordMutation } from '@/redux/api/authApi/authApi';
-import { login } from '@/redux/features/authSlice';
 import { toast } from 'react-toastify';
 
-const ResetPassword = () => {
+const Login = () => {
+    const [newPassword, setNewPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [showPassword1, setShowPassword1] = useState(false);
+    const [showPassword2, setShowPassword2] = useState(false);
+    const [loading, setLoading] = useState(false);
     const route = useRouter();
-    const [resetPassword, resetPasswordResult] = useResetPasswordMutation();
     const dispatch = useDispatch();
 
-    const formik = useFormik({
-        initialValues: {
-            newPassword: '',
-            confirmPassword: '',
-        },
-        validationSchema: Yup.object({
-            newPassword: Yup.string()
-                .required('New Password is required!'),
-            confirmPassword: Yup.string()
-                .oneOf([Yup.ref('newPassword')], 'Passwords must match!')
-                .required('Confirm Password is required!'),
-        }),
-        onSubmit: async (values) => {
-            try {
-                const otp_email = localStorage.getItem('qp_user_otp_email');
-                if (otp_email) {
-                    const res = await resetPassword({ email: otp_email, password: values.newPassword }).unwrap();
-                    dispatch(login({ token: res?.data?.token, id: res?.data?.id }));
-                    localStorage.removeItem('qp_user_otp_email');
-                    toast.success("Password reset successfully!");
-                    route.push('/');
-                }
-            } catch (error: any) {
-                console.log(error);
-                toast.error(error?.data?.message || error?.message || "Something went wrong!");
-            }
-        },
-    });
+    const togglePasswordVisibility1 = () => {
+        setShowPassword1(!showPassword1);
+    };
+    const togglePasswordVisibility2 = () => {
+        setShowPassword2(!showPassword2);
+    };
 
-    const {
-        values,
-        errors,
-        touched,
-        setFieldValue,
-        handleChange,
-        handleBlur,
-        handleSubmit,
-    } = formik;
+    const handleLogin = async () => {
+        if (!newPassword) {
+            toast.error("New password is required");
+            return;
+        }
+        if (!confirmPassword) {
+            toast.error("Confirm password is required");
+            return;
+        }
+
+        if (newPassword !== confirmPassword) {
+            toast.error("Passwords do not match");
+            return;
+        }
+
+        setLoading(true);
+        try {
+
+        } catch (error: any) {
+            setLoading(false);
+            toast.error(error?.message || error?.data?.message || "Something went wrong!");
+        }
+    }
+
     return (
-        <div className='w-full h-full overflow-hidden'>
-            <Head>
-                <title>Reset Password | Quiickpage</title>
-            </Head>
-            <div className='w-full h-full flex overflow-hidden'>
-                <div className='hidden md:flex w-full md:w-[50%] h-full overflow-hidden'>
-                    <Image src={AUTH} alt='login' className='w-full h-[100vh] object-cover overflow-hidden' />
-                </div>
-                <div className='w-full md:w-[50%] h-[100vh] px-[20px]'>
-                    <div className='w-full h-full flex flex-col items-center justify-center'>
-                        <div className='text-h4 font-[600] text-center'>Forgot Password</div>
-                        <div className='w-full h-[24px] flex justify-center items-center relative my-[20px]'>
-                            <div className='h-[1px] w-full bg-[#000]/10 absolute' />
-                            <Image src={HERO} alt='hero' className='bg-white z-10 px-[20px]' />
-                        </div>
-                        <div className='w-full md:w-[50%]'>
-                            <form onSubmit={handleSubmit} className="w-full flex flex-col gap-[24px] mt-[30px]">
-                                <CustomInput
-                                    label="New Password"
-                                    type="newPassword"
-                                    fieldTitle="newPassword"
-                                    setFieldValue={setFieldValue}
-                                    value={values.newPassword}
-                                    touched={touched.newPassword}
-                                    error={errors.newPassword}
-                                    handleBlur={handleBlur}
-                                />
-                                <CustomInput
-                                    label="Confirm Password"
-                                    type="confirmPassword"
-                                    fieldTitle="confirmPassword"
-                                    setFieldValue={setFieldValue}
-                                    value={values.confirmPassword}
-                                    touched={touched.confirmPassword}
-                                    error={errors.confirmPassword}
-                                    handleBlur={handleBlur}
-                                />
-                                <button
-                                    type='submit'
-                                    className={`w-full relative text-nowrap text-white z-[1] overflow-hidden flex items-center justify-center gap-[6px] rounded-[6px] bg-primary h-[40px] text-small font-[400] py-[10px] px-[20px]`}
-                                >
-                                    Change Password
-                                </button>
-                            </form>
+        <div className='w-full py-[60px] bg-[#f7f7f7] min-h-[50vh]'>
+            <ParentDiv>
+                <div className='w-full sm:w-[400px] lg:w-[600px] p-[10px] lg:p-[20px] bg-white shadow flex flex-col gap-[20px]'>
+                    <div className='w-full text-h5 lg:text-h4 font-[900] text-primary text-center my-[30px]'>Reset Password</div>
+
+                    <div className='w-full flex flex-col gap-[10px]'>
+                        <div className='text-small text-gray-300 font-[700]'>New Password</div>
+                        <div className='w-full relative'>
+                            <input
+                                type={showPassword1 ? "text" : "password"}
+                                className={`flex-grow text-primary border-[1px] border-primary/20 placeholder:text-gray-400 p-[12px] rounded-[6px] w-full focus:border-primary focus:outline text-medium`}
+                                placeholder={"Write your new password"}
+                                onChange={e => setNewPassword(e.target.value)}
+                                value={newPassword}
+                            />
+                            <button
+                                type="button"
+                                className="outline-none focus:outline-none text-[#747474] absolute top-[30%] right-3 z-10 cursor-pointer"
+                                onClick={togglePasswordVisibility1}
+                            >
+                                {showPassword1 ? (
+                                    <Eye size={24} />
+                                ) : (
+                                    <EyeSlash size={24} />
+                                )}
+                            </button>
                         </div>
                     </div>
+                    <div className='w-full flex flex-col gap-[10px]'>
+                        <div className='text-small text-gray-300 font-[700]'>Confirm Password</div>
+                        <div className='w-full relative'>
+                            <input
+                                type={showPassword2 ? "text" : "password"}
+                                className={`flex-grow text-primary border-[1px] border-primary/20 placeholder:text-gray-400 p-[12px] rounded-[6px] w-full focus:border-primary focus:outline text-medium`}
+                                placeholder={"Write your confirm password"}
+                                onChange={e => setNewPassword(e.target.value)}
+                                value={newPassword}
+                            />
+                            <button
+                                type="button"
+                                className="outline-none focus:outline-none text-[#747474] absolute top-[30%] right-3 z-10 cursor-pointer"
+                                onClick={togglePasswordVisibility2}
+                            >
+                                {showPassword2 ? (
+                                    <Eye size={24} />
+                                ) : (
+                                    <EyeSlash size={24} />
+                                )}
+                            </button>
+                        </div>
+                    </div>
+                    <CustomButton onClick={handleLogin} title='Change Password' size='large' className='w-full my-[20px]' />
                 </div>
-            </div>
+            </ParentDiv>
+            {loading && <Loading />}
         </div>
     )
 }
 
-export default ResetPassword
+export default Login
