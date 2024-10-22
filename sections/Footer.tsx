@@ -93,7 +93,7 @@ const Footer = () => {
             <ParentDiv>
                 <div className='w-full py-[40px] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-[40px]'>
                     <div className='w-full'>
-                        <div className='text-white font-[900] text-h5 mb-[20px]'>Quick Links</div>
+                        <div className='text-white font-[900] text-h5 mb-[20px] tracking-[3px]'>QUICK LINKS</div>
                         <div className='flex flex-col gap-[10px]'>
                             {QUICK_LINKS?.map((item, index) => {
                                 return (
@@ -105,7 +105,7 @@ const Footer = () => {
                         </div>
                     </div>
                     <div className='w-full'>
-                        <div className='text-white font-[900] text-h5 mb-[20px]'>Terms & Support</div>
+                        <div className='text-white font-[900] text-h5 mb-[20px] tracking-[3px]'>TERMS & SUPPORT</div>
                         <div className='flex flex-col gap-[10px]'>
                             {TERMS_SUPPORT?.map((item, index) => {
                                 return (
@@ -117,13 +117,13 @@ const Footer = () => {
                         </div>
                     </div>
                     <div className='w-full'>
-                        <div className='text-white font-[900] text-h5 mb-[20px]'>Follow Us On</div>
+                        <div className='text-white font-[900] text-h5 mb-[20px] tracking-[3px]'>FOLLOW US ON</div>
                         <div className='flex flex-col gap-[10px]'>
                             {SOCIAL_LINKS?.map((item, index) => {
                                 return (
                                     <div key={index} className='flex items-center gap-[10px]'>
                                         {item?.icon}
-                                        <Link href={item.path} target='_blank' className={`${pathName === item?.path ? "text-primary" : "text-white"} hover:text-primary text-[16px] font-[300] w-fit`}>
+                                        <Link href={item.path} target='_blank' className={`tracking-[3px] ${pathName === item?.path ? "text-primary" : "text-white"} hover:text-primary text-[16px] font-[300] w-fit`}>
                                             {item.title}
                                         </Link>
                                     </div>
@@ -134,7 +134,7 @@ const Footer = () => {
                 </div>
             </ParentDiv>
             <div className='w-full h-[0.5px] bg-white/20' />
-            <div className='w-full h-[60px] flex items-center justify-center text-white/80'>
+            <div className='w-full h-[60px] flex items-center justify-center text-white/80 tracking-[3px] text-[14px]'>
                 © {new Date()?.getFullYear()} <Link href={"https://www.appifydevs.com/"} target='_blank'><span className='text-primary ml-[10px]'> Appify</span><span className='text-white'>Devs</span><span className='text-primary mr-[10px]'>. </span></Link> All rights reserved.
             </div>
         </div>
