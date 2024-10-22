@@ -92,7 +92,7 @@ const Header = () => {
                                     >
                                         <Link
                                             href={item?.path}
-                                            className={`flex items-center gap-[8px] text-small font-[400] nav-item uppercase tracking-[3px] ${((pathName === "/" && item?.title === "EXCHANGE") || pathName?.includes(item?.title?.toLowerCase()?.split(" ")?.join("-")))
+                                            className={`flex items-center gap-[8px] text-small font-[400] nav-item uppercase tracking-[3px] ${((pathName === "/" && item?.title === "EXCHANGE") || (pathName?.includes(item?.title?.toLowerCase()?.split(" ")?.join("-")) && pathName?.split("/")?.length === 2))
                                                 ? "text-primary active"
                                                 : "text-gray-300 hover:text-primary"
                                                 } cursor-pointer select-none`}

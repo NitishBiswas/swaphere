@@ -9,7 +9,7 @@ const Contact = () => {
     const [message, setMessage] = useState("");
 
     return (
-        <div className='w-full py-[60px] bg-[#f7f7f7]'>
+        <div className='w-full py-[60px] bg-[#f7f7f7] min-h-[50vh]'>
             <ParentDiv>
                 <div className='w-full p-[10px] lg:p-[20px] bg-white shadow flex flex-col gap-[10px]'>
                     <div className='text-h6 md:text-h5 font-[500] text-gray-200'>Contact Us</div>

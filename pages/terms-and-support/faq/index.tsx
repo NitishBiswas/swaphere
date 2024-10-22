@@ -62,7 +62,7 @@ const FAQ = () => {
     }
 
     return (
-        <div className='w-full py-[60px] bg-[#f7f7f7]'>
+        <div className='w-full py-[60px] bg-[#f7f7f7] min-h-[50vh]'>
             <ParentDiv>
                 <div className='w-full text-h5 lg:text-h4 font-[900] text-primary mb-[20px]'>Frequently Asked Questions</div>
                 <div className='w-full flex flex-col gap-[20px]'>
