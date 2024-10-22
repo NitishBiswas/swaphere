@@ -26,7 +26,7 @@ const Contact = () => {
                                 <div className='text-small text-gray-300 font-[700]'>Your Name</div>
                                 <input
                                     type="text"
-                                    className={`flex-grow text-primary border-[1px] border-stroke placeholder:text-gray-400 p-[12px] rounded-[6px] w-full focus:border-primary focus:outline-none text-medium`}
+                                    className={`flex-grow text-primary border-[1px] border-primary/20 placeholder:text-gray-400 p-[12px] rounded-[6px] w-full focus:border-primary focus:outline text-medium`}
                                     placeholder={"Type here your name"}
                                     onChange={e => setName(e.target.value)}
                                     value={name}

@@ -31,7 +31,7 @@ const Settings = () => {
                             <div className='w-full relative'>
                                 <input
                                     type={showPassword?.includes(1) ? "text" : "password"}
-                                    className={`flex-grow text-primary border-[1px] border-stroke placeholder:text-gray-400 p-[12px] rounded-[6px] w-full focus:border-primary focus:outline-none text-medium`}
+                                    className={`flex-grow text-primary border-[1px] border-primary/20 placeholder:text-gray-400 p-[12px] rounded-[6px] w-full focus:border-primary focus:outline text-medium`}
                                     placeholder={"Write your current password"}
                                     onChange={e => setCurrentPassword(e.target.value)}
                                     value={currentPassword}
@@ -54,7 +54,7 @@ const Settings = () => {
                             <div className='w-full relative'>
                                 <input
                                     type={showPassword?.includes(2) ? "text" : "password"}
-                                    className={`flex-grow text-primary border-[1px] border-stroke placeholder:text-gray-400 p-[12px] rounded-[6px] w-full focus:border-primary focus:outline-none text-medium`}
+                                    className={`flex-grow text-primary border-[1px] border-primary/20 placeholder:text-gray-400 p-[12px] rounded-[6px] w-full focus:border-primary focus:outline text-medium`}
                                     placeholder={"Write your new password"}
                                     onChange={e => setNewPassword(e.target.value)}
                                     value={newPassword}
@@ -77,7 +77,7 @@ const Settings = () => {
                             <div className='w-full relative'>
                                 <input
                                     type={showPassword?.includes(3) ? "text" : "password"}
-                                    className={`flex-grow text-primary border-[1px] border-stroke placeholder:text-gray-400 p-[12px] rounded-[6px] w-full focus:border-primary focus:outline-none text-medium`}
+                                    className={`flex-grow text-primary border-[1px] border-primary/20 placeholder:text-gray-400 p-[12px] rounded-[6px] w-full focus:border-primary focus:outline text-medium`}
                                     placeholder={"Confirm your new password"}
                                     onChange={e => setConfirmPassword(e.target.value)}
                                     value={confirmPassword}

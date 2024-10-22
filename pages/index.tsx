@@ -441,7 +441,7 @@ const Home = () => {
                             <div className='text-large font-[500] my-[10px]'>Track exchange</div>
                             <input
                                 type="text"
-                                className={`flex-grow text-primary border-[1px] border-stroke placeholder:text-gray-400 p-[12px] rounded-[6px] w-full focus:border-primary focus:outline-none text-medium`}
+                                className={`flex-grow text-primary border-[1px] border-primary/20 placeholder:text-gray-400 p-[12px] rounded-[6px] w-full focus:border-primary focus:outline text-medium`}
                                 placeholder={"Type here exchange id"}
                                 onChange={e => setExchangeId(e.target.value)}
                                 value={exchangeId}
