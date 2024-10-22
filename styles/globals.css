@@ -1,0 +1,166 @@
+/* global.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+  margin: 0;
+  padding: 0;
+}
+
+body::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+  background-color: transparent;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: linear-gradient(#ffffff, #f24535);
+  border-radius: 8px;
+}
+
+body.scroll-top::-webkit-scrollbar-thumb {
+  background: linear-gradient(#ffffff, #f24535);
+  border-radius: 8px;
+}
+
+body.scroll-bottom::-webkit-scrollbar-thumb {
+  background: linear-gradient(#f24535, #ffffff);
+  border-radius: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+  background-color: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(#ffffff, #f24535);
+  border-radius: 8px;
+}
+
+.custom-scrollbar.scroll-top::-webkit-scrollbar-thumb {
+  background: linear-gradient(#ffffff, #f24535);
+  border-radius: 8px;
+}
+
+.custom-scrollbar.scroll-bottom::-webkit-scrollbar-thumb {
+  background: linear-gradient(#f24535, #ffffff);
+  border-radius: 8px;
+}
+
+.text-gradient {
+  background: linear-gradient(90deg, rgba(255,0,255,1) 0%, rgba(0,0,255,1) 50%, rgba(0,255,255,1) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  background-size: 200% auto;
+  animation: gradient 2s linear infinite;
+}
+
+@keyframes gradient {
+  0% { background-position: 0% 75%;}
+  50% { background-position: 100% 50%;}
+  100% { background-position: 0% 75%;}
+}
+
+h1 {
+    font-size: 1.5em;
+}
+
+h2 {
+    font-size: 1.2em;
+}
+
+h3 {
+    font-size: 1em;
+}
+
+h4 {
+    font-size: 0.7em;
+}
+
+
+.cursor-moving{
+  position: relative;
+  color: transparent;
+  -webkit-text-stroke: 1px #f2453579;
+}
+
+.cursor-moving::before{
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  color: #f24535;
+  -webkit-text-stroke: 0px #f24535;
+  border-right: 2px solid #f24535;
+  overflow: hidden;
+  animation: cursor-moving 4s infinite linear;
+}
+
+@keyframes cursor-moving{
+  0%, 10%, 100% {
+    width: 0%;
+  }
+  70%, 90% {
+    width: 100%;
+  }
+}
+
+/* nav item  */
+
+.nav-item::before {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 0px;
+    width: 0%;
+    height: 2px;
+    background-color: #f24535;
+    transition: all 0.5s ease-in-out;
+}
+
+.nav-item:hover::before,
+.nav-item.active::before {
+    width: 100%;
+}
+
+/* Marquee text animation styles */
+.pause {
+  animation-play-state: paused;
+}
+
+.text-gradient {
+  background: linear-gradient(90deg, #f24535 0%, #131440 50%,  #f24535 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  background-size: 200% auto;
+  animation: gradient 2s linear infinite;
+}
+
+@keyframes gradient {
+  0% { background-position: 0% 75%;}
+  50% { background-position: 100% 50%;}
+  100% { background-position: 0% 75%;}
+}
+
+/* Hide arrows in Chrome, Safari, Edge, Opera */
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Hide arrows in Firefox */
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+
+  .animate-spin {
+    animation: spin 2s linear infinite;
+}
