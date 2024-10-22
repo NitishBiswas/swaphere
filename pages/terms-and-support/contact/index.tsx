@@ -2,12 +2,43 @@ import CustomButton from '@/components/CustomButton';
 import ParentDiv from '@/components/ParentDiv'
 import Head from 'next/head';
 import React, { useState } from 'react'
+import { toast } from 'react-toastify';
 
 const Contact = () => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [subject, setSubject] = useState("");
     const [message, setMessage] = useState("");
+
+    const handleSendMessage = async () => {
+        if (!name) {
+            toast.error("Name is required");
+            return;
+        }
+        if (!email) {
+            toast.error("Email is required");
+            return;
+        }
+        if (!subject) {
+            toast.error("Subject is required");
+            return;
+        }
+        if (!message) {
+            toast.error("Message is required");
+            return;
+        }
+
+        try {
+            // Call API to message sent
+            toast.success("Message sent successfully");
+            setName("");
+            setEmail("");
+            setSubject("");
+            setMessage("");
+        } catch (error: any) {
+            toast.error(error?.message || error?.data?.message || "Something went wrong");
+        }
+    }
 
     return (
         <div className='w-full py-[60px] bg-[#f7f7f7] min-h-[50vh]'>
@@ -67,7 +98,7 @@ const Contact = () => {
                                 />
                             </div>
                             <div className='w-full'>
-                                <CustomButton title='Send Message' size='large' className='w-full sm:w-fit' />
+                                <CustomButton onClick={handleSendMessage} title='Send Message' size='large' className='w-full sm:w-fit' />
                             </div>
                         </div>
                     </div>

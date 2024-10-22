@@ -14,6 +14,7 @@ import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component';
 import { useSelector } from 'react-redux'
+import { toast } from 'react-toastify'
 
 interface IWithdraw {
     id: string;
@@ -90,6 +91,32 @@ const Withdrawals = () => {
     const route = useRouter();
     const authToken: string | null = useSelector(selectAuthToken);
 
+    const handleWithdrawal = async () => {
+        if (!accountFrom) {
+            toast.error("Account From is required");
+            return;
+        }
+        if (!accountTo) {
+            toast.error("Account To is required");
+            return;
+        }
+        if (!amount) {
+            toast.error("Amount is required");
+            return;
+        }
+        if (!accountNumber) {
+            toast.error("Account Number is required");
+            return;
+        }
+
+        try {
+            // Call API to withdrawal
+            toast.success("Withdrawal request sent successfully");
+        } catch (error: any) {
+            toast.error(error?.message || error?.data?.message || "Something went wrong");
+        }
+    }
+
     if (!authToken) {
         route.push('/login');
         return <Loading />;
@@ -131,6 +158,7 @@ const Withdrawals = () => {
                 setShowModal={setShowAddReviewModal}
                 title={"Request Fund Withdrawals"}
                 submitButton={true}
+                handleSubmit={handleWithdrawal}
                 className='max-w-[300px] !min-w-[77%] sm:!min-w-[75%] md:!min-w-[45%] lg:!min-w-[35vw] xl:!min-w-[25vw]'
             >
                 <div className='w-full flex flex-col gap-[20px]'>

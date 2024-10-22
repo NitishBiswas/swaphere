@@ -2,10 +2,17 @@ import React, { useState, useEffect } from "react";
 import BG from "@/assets/images/bg.jpg";
 import ParentDiv from "@/components/ParentDiv";
 import CustomButton from "@/components/CustomButton";
-import { ArrowDown, ArrowSwapHorizontal, ArrowUp } from "iconsax-react";
+import { ArrowDown, ArrowSwapHorizontal, ArrowUp, Eye, EyeSlash } from "iconsax-react";
 import { StaticImageData } from "next/image";
 import ExchangeDropdown from "@/components/ExchangeDropdown";
 import { ADV_CASH, B_PERSONAL, BINANCE, FIVERR, N_PERDONAL, PAYEER, PAYPAL, PERFECT_MONEY, PM_MANUAL, REDOTPAY, WEB_MONEY } from "@/assets/images";
+import ParentModal from "@/components/ParentModal";
+import { useDispatch, useSelector } from "react-redux";
+import { login, selectAuthToken } from "@/redux/features/authSlice";
+import { toast } from "react-toastify";
+import { useRouter } from "next/router";
+import CheckboxButton from "@/components/CheckboxButton";
+import Link from "next/link";
 
 export interface IExchange {
     id: string;
@@ -239,6 +246,50 @@ const Hero = () => {
 
     const sendCurrency = EXCHANGE_LIST.filter(item => item.id === sendSelectedItem)[0];
     const receiveCurrency = EXCHANGE_LIST.filter(item => item.id === receiveSelectedItem)[0];
+    const [alertModal, setAlertModal] = useState(false);
+    const authToken: string | null = useSelector(selectAuthToken);
+    const [loginModal, setLoginModal] = useState(false);
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
+    const [rememberMe, setRememberMe] = useState(true);
+    const [loading, setLoading] = useState(false);
+    const route = useRouter();
+    const dispatch = useDispatch();
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
+
+    const handleLogin = async () => {
+        if (!email) {
+            toast.error("Email is required");
+            return;
+        }
+        if (!password) {
+            toast.error("Password is required");
+            return;
+        }
+
+        setLoading(true);
+        try {
+            if (email === "test@gmail.com" && password === "1234") {
+                setTimeout(() => {
+                    dispatch(login({ token: "nitishbiswas" }));
+                    setLoading(false);
+                    toast.success("Logged in successfully");
+                    route.push('/');
+                }, 3000);
+            } else {
+                toast.error("Invalid credentials");
+                setLoading(false);
+            }
+        } catch (error: any) {
+            setLoading(false);
+            toast.error(error?.message || error?.data?.message || "Something went wrong!");
+        }
+    }
 
     useEffect(() => {
         if (sendCurrency && receiveCurrency && sendValue) {
@@ -307,6 +358,13 @@ const Hero = () => {
                     </div>
                     <div className="w-full flex items-center justify-center">
                         <CustomButton
+                            onClick={() => {
+                                if (authToken) {
+                                    setAlertModal(true);
+                                } else {
+                                    setLoginModal(true);
+                                }
+                            }}
                             title="Exchange"
                             leftIcon={<ArrowSwapHorizontal />}
                             size="large"
@@ -315,6 +373,71 @@ const Hero = () => {
                     </div>
                 </div>
             </ParentDiv>
+
+            <ParentModal
+                showModal={alertModal}
+                setShowModal={setAlertModal}
+                submitButton={false}
+                title="⚠️ দুঃখিত"
+                className='max-w-[300px] !min-w-[77%] sm:!min-w-[75%] md:!min-w-[45%] lg:!min-w-[35vw] xl:!min-w-[25vw]'
+            >
+                <div>
+                    এই মুহূর্তে Royal এবং Elite ইউজার ব্যতীত অন্যদের জন্য লেনদেন বন্ধ রয়েছে। অনুগ্রহ করে আপনি সকাল ৭টা পর্যন্ত অপেক্ষা করুন।
+                </div>
+            </ParentModal>
+
+            <ParentModal
+                showModal={loginModal}
+                setShowModal={setLoginModal}
+                submitButton={false}
+                bottomButtons={false}
+                title="Login with Your Account"
+                className='max-w-[300px] !min-w-[77%] sm:!min-w-[75%] md:!min-w-[45%] lg:!min-w-[35vw] xl:!min-w-[25vw]'
+            >
+                <div className="w-full flex flex-col gap-[20px]">
+                    <div className='w-full flex flex-col gap-[10px]'>
+                        <div className='text-small text-gray-300 font-[700]'>Email</div>
+                        <input
+                            type="text"
+                            className={`flex-grow text-primary border-[1px] border-primary/20 placeholder:text-gray-400 p-[12px] rounded-[6px] w-full focus:border-primary focus:outline text-medium`}
+                            placeholder={"Type here your email"}
+                            onChange={e => setEmail(e.target.value)}
+                            value={email}
+                        />
+                    </div>
+                    <div className='w-full flex flex-col gap-[10px]'>
+                        <div className='text-small text-gray-300 font-[700]'>Your Password</div>
+                        <div className='w-full relative'>
+                            <input
+                                type={showPassword ? "text" : "password"}
+                                className={`flex-grow text-primary border-[1px] border-primary/20 placeholder:text-gray-400 p-[12px] rounded-[6px] w-full focus:border-primary focus:outline text-medium`}
+                                placeholder={"Write your current password"}
+                                onChange={e => setPassword(e.target.value)}
+                                value={password}
+                            />
+                            <button
+                                type="button"
+                                className="outline-none focus:outline-none text-[#747474] absolute top-[30%] right-3 z-10 cursor-pointer"
+                                onClick={togglePasswordVisibility}
+                            >
+                                {showPassword ? (
+                                    <Eye size={24} />
+                                ) : (
+                                    <EyeSlash size={24} />
+                                )}
+                            </button>
+                        </div>
+                    </div>
+                    <div className='w-full flex items-center justify-between gap-[20px]'>
+                        <CheckboxButton title='Remember Me' checked={rememberMe} setChecked={setRememberMe} />
+                        <Link href={"/forgot-password"} className='hover:text-primary'>Forgot Password?</Link>
+                    </div>
+                    <CustomButton onClick={handleLogin} title='Login' size='large' className='w-full my-[20px]' />
+                    <div className='w-full text-center text-small text-gray-300'>
+                        Don&apos;t have an account? <Link href={"/signup"} className='text-primary hover:text-error'>Sign Up</Link>
+                    </div>
+                </div>
+            </ParentModal>
         </div>
     );
 };

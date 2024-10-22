@@ -16,7 +16,7 @@ const ForgotPassword = () => {
     const [loading, setLoading] = useState(false);
     const route = useRouter();
 
-    const handleLogin = async () => {
+    const handleSendOtp = async () => {
         if (!email) {
             toast.error("Email is required");
             return;
@@ -49,7 +49,7 @@ const ForgotPassword = () => {
                             value={email}
                         />
                     </div>
-                    <CustomButton onClick={handleLogin} title='Send OTP' size='large' className='w-full my-[20px]' />
+                    <CustomButton onClick={handleSendOtp} title='Send OTP' size='large' className='w-full my-[20px]' />
                     <div className='w-full text-justify text-small text-gray-200 bg-gray-500/40 p-[20px]'>
                         Secure your $wapHere account! Enter your registered email above to request a password reset OTP. Follow the OTP sent to your inbox within the next 10 minutes to easily set a new password and regain access to your account.
                     </div>

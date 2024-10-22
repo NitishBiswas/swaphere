@@ -8,6 +8,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router';
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 const Settings = () => {
     const [currentPassword, setCurrentPassword] = useState("");
@@ -24,6 +25,33 @@ const Settings = () => {
             setShowPassword([...showPassword, id]);
         }
     };
+
+    const handleSaveChanges = async () => {
+        if (!currentPassword) {
+            toast.error("Current password is required");
+            return;
+        }
+        if (!newPassword) {
+            toast.error("New password is required");
+            return;
+        }
+        if (!confirmPassword) {
+            toast.error("Confirm password is required");
+            return;
+        }
+
+        if (newPassword !== confirmPassword) {
+            toast.error("Passwords do not match");
+            return;
+        }
+
+        try {
+            // Call API to update password
+            toast.success("Password updated successfully");
+        } catch (error: any) {
+            toast.error(error?.message || error?.data?.message || "Something went wrong!");
+        }
+    }
 
     if (!authToken) {
         route.push('/login');
@@ -112,7 +140,7 @@ const Settings = () => {
                         </div>
                     </div>
                     <div className='w-full flex items-center justify-end mt-[20px]'>
-                        <CustomButton title='Save Changes' size='large' className='w-full sm:w-fit' />
+                        <CustomButton onClick={handleSaveChanges} title='Save Changes' size='large' className='w-full sm:w-fit' />
                     </div>
                 </div>
             </ParentDiv>

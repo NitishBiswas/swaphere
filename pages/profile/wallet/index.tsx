@@ -76,6 +76,74 @@ const Wallet = () => {
     const route = useRouter();
     const authToken: string | null = useSelector(selectAuthToken);
 
+    const handleExchangeMoney = async () => {
+        if (!fromWallet) {
+            toast.error("From wallet is required");
+            return;
+        }
+        if (!toGateway) {
+            toast.error("To gateway is required");
+            return;
+        }
+        if (!amount) {
+            toast.error("Amount is required");
+            return;
+        }
+        if (!password) {
+            toast.error("Password is required");
+            return;
+        }
+
+        try {
+            // Call API to exchange money
+            toast.success("Money exchanged successfully");
+        } catch (error: any) {
+            toast.error(error?.message || error?.data?.message || "Something went wrong");
+        }
+    }
+
+    const handleDepositMoney = async () => {
+        if (!toGateway) {
+            toast.error("To gateway is required");
+            return;
+        }
+        if (!amount) {
+            toast.error("Amount is required");
+            return;
+        }
+        try {
+            // Call API to deposit money
+            toast.success("Money deposited successfully");
+        } catch (error: any) {
+            toast.error(error?.message || error?.data?.message || "Something went wrong");
+        }
+    }
+
+    const handleSendMoney = async () => {
+        if (!usernameOrEmail) {
+            toast.error("Username or email is required");
+            return;
+        }
+        if (!fromWallet) {
+            toast.error("From wallet is required");
+            return;
+        }
+        if (!amount) {
+            toast.error("Amount is required");
+            return;
+        }
+        if (!paymentDescription) {
+            toast.error("Payment description is required");
+            return;
+        }
+        try {
+            // Call API to send money
+            toast.success("Money sent successfully");
+        } catch (error: any) {
+            toast.error(error?.message || error?.data?.message || "Something went wrong");
+        }
+    }
+
     if (!authToken) {
         route.push('/login');
         return <Loading />;
@@ -107,6 +175,7 @@ const Wallet = () => {
                 setShowModal={setExchangeModal}
                 title={"Exchange Money"}
                 submitButton={true}
+                handleSubmit={handleExchangeMoney}
                 className='max-w-[300px] !min-w-[77%] sm:!min-w-[75%] md:!min-w-[45%] lg:!min-w-[35vw] xl:!min-w-[25vw]'
             >
                 <div className='w-full flex flex-col gap-[20px]'>
@@ -178,6 +247,7 @@ const Wallet = () => {
                 setShowModal={setDepositModal}
                 title={"Deposit Money"}
                 submitButton={true}
+                handleSubmit={handleDepositMoney}
                 className='max-w-[300px] !min-w-[77%] sm:!min-w-[75%] md:!min-w-[45%] lg:!min-w-[35vw] xl:!min-w-[25vw]'
             >
                 <div className='w-full flex flex-col gap-[20px]'>
@@ -206,6 +276,7 @@ const Wallet = () => {
                 setShowModal={setSendModal}
                 title={"Send Money"}
                 submitButton={true}
+                handleSubmit={handleSendMoney}
                 className='max-w-[300px] !min-w-[77%] sm:!min-w-[75%] md:!min-w-[45%] lg:!min-w-[35vw] xl:!min-w-[25vw]'
             >
                 <div className='w-full flex flex-col gap-[20px]'>

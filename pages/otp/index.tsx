@@ -12,7 +12,7 @@ const OTP = () => {
     const [loading, setLoading] = useState(false);
     const route = useRouter();
 
-    const handleLogin = async () => {
+    const handleCheckOtp = async () => {
         if (!otp || otp?.length !== 4) {
             toast.error("OTP is required and must be 4 digits");
             return;
@@ -61,7 +61,7 @@ const OTP = () => {
                             }}
                         />}
                     />
-                    <CustomButton onClick={handleLogin} title='Send OTP' size='large' className='w-full my-[20px]' />
+                    <CustomButton onClick={handleCheckOtp} title='Send OTP' size='large' className='w-full my-[20px]' />
                     <div className='w-full text-justify text-small text-gray-200 bg-gray-500/40 p-[20px]'>
                         Follow the OTP sent to your inbox within the next 10 minutes to easily set a new password and regain access to your account.
                     </div>
