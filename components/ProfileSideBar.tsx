@@ -35,6 +35,10 @@ const PROFILE_SIDEBAR: IProfileSidebar[] = [
         title: 'Withdrawals',
         path: '/profile/withdrawals',
     },
+    {
+        title: 'Settings',
+        path: '/profile/settings',
+    },
 ];
 
 const ProfileSideBar = ({ onClose }: { onClose: () => void }) => {
