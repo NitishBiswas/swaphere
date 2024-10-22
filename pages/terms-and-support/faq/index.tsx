@@ -1,5 +1,6 @@
 import ParentDiv from '@/components/ParentDiv';
 import { ArrowUp2 } from 'iconsax-react';
+import Head from 'next/head';
 import React, { useState } from 'react';
 
 const FREQUENTLY_ASKED_QUESTIONS = [
@@ -63,6 +64,9 @@ const FAQ = () => {
 
     return (
         <div className='w-full py-[60px] bg-[#f7f7f7] min-h-[50vh]'>
+            <Head>
+                <title>Frequently Asked Questions | SwapHere</title>
+            </Head>
             <ParentDiv>
                 <div className='w-full text-h5 lg:text-h4 font-[900] text-primary mb-[20px]'>Frequently Asked Questions</div>
                 <div className='w-full flex flex-col gap-[20px]'>

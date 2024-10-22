@@ -4,6 +4,7 @@ import Loading from '@/components/Loading';
 import ParentDiv from '@/components/ParentDiv'
 import { login } from '@/redux/features/authSlice';
 import { Eye, EyeSlash } from 'iconsax-react';
+import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react'
@@ -74,6 +75,9 @@ const Signup = () => {
 
     return (
         <div className='w-full py-[60px] bg-[#f7f7f7] min-h-[50vh]'>
+            <Head>
+                <title>Create Account | SwapHere</title>
+            </Head>
             <ParentDiv>
                 <div className='w-full sm:w-[400px] lg:w-[600px] p-[10px] lg:p-[20px] bg-white shadow flex flex-col gap-[20px]'>
                     <div className='w-full text-h5 lg:text-h4 font-[900] text-primary text-center mt-[30px]'>Create Account Free</div>

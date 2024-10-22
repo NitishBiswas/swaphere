@@ -7,6 +7,7 @@ import ParentDiv from '@/components/ParentDiv'
 import ParentModal from '@/components/ParentModal'
 import { selectAuthToken } from '@/redux/features/authSlice'
 import { Add } from 'iconsax-react'
+import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
@@ -107,6 +108,9 @@ const MyReviews = () => {
 
     return (
         <div className='w-full py-[60px] bg-[#f7f7f7] min-h-[50vh]'>
+            <Head>
+                <title>My Reviews | SwapHere</title>
+            </Head>
             <ParentDiv>
                 <div className='w-full p-[10px] lg:p-[20px] bg-white shadow flex flex-col gap-[10px]'>
                     <div className='w-full flex items-center justify-between gap-[10px]'>

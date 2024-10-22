@@ -1,5 +1,6 @@
 import CustomButton from '@/components/CustomButton';
 import ParentDiv from '@/components/ParentDiv'
+import Head from 'next/head';
 import React, { useState } from 'react'
 
 const Contact = () => {
@@ -10,6 +11,9 @@ const Contact = () => {
 
     return (
         <div className='w-full py-[60px] bg-[#f7f7f7] min-h-[50vh]'>
+            <Head>
+                <title>Contact Us | SwapHere</title>
+            </Head>
             <ParentDiv>
                 <div className='w-full p-[10px] lg:p-[20px] bg-white shadow flex flex-col gap-[10px]'>
                     <div className='text-h6 md:text-h5 font-[500] text-gray-200'>Contact Us</div>

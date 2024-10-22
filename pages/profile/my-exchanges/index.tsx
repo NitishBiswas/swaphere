@@ -1,6 +1,7 @@
 import Loading from '@/components/Loading';
 import ParentDiv from '@/components/ParentDiv'
 import { selectAuthToken } from '@/redux/features/authSlice';
+import Head from 'next/head';
 import Link from 'next/link'
 import { useRouter } from 'next/router';
 import React from 'react'
@@ -16,6 +17,9 @@ const MyExchanges = () => {
     }
     return (
         <div className='w-full py-[60px] bg-[#f7f7f7] min-h-[50vh]'>
+            <Head>
+                <title>My Exchanges | SwapHere</title>
+            </Head>
             <ParentDiv>
                 <div className='w-full p-[10px] lg:p-[20px] bg-white shadow flex flex-col gap-[10px]'>
                     <div className='text-h6 md:text-h5 font-[500] text-gray-200'>My Exchanges</div>

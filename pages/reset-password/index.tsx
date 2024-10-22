@@ -3,6 +3,7 @@ import CustomButton from '@/components/CustomButton';
 import Loading from '@/components/Loading';
 import ParentDiv from '@/components/ParentDiv'
 import { Eye, EyeSlash } from 'iconsax-react';
+import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react'
@@ -51,6 +52,9 @@ const Login = () => {
 
     return (
         <div className='w-full py-[60px] bg-[#f7f7f7] min-h-[50vh]'>
+            <Head>
+                <title>Reset Password | SwapHere</title>
+            </Head>
             <ParentDiv>
                 <div className='w-full sm:w-[400px] lg:w-[600px] p-[10px] lg:p-[20px] bg-white shadow flex flex-col gap-[20px]'>
                     <div className='w-full text-h5 lg:text-h4 font-[900] text-primary text-center my-[30px]'>Reset Password</div>

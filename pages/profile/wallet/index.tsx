@@ -5,6 +5,7 @@ import ParentDiv from '@/components/ParentDiv'
 import ParentModal from '@/components/ParentModal';
 import { selectAuthToken } from '@/redux/features/authSlice';
 import { Eye, EyeSlash } from 'iconsax-react';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux';
@@ -82,6 +83,9 @@ const Wallet = () => {
 
     return (
         <div className='w-full py-[60px] bg-[#f7f7f7] min-h-[50vh]'>
+            <Head>
+                <title>Wallet | SwapHere</title>
+            </Head>
             <ParentDiv>
                 <div className='w-full p-[10px] lg:p-[20px] bg-white shadow flex flex-col gap-[10px]'>
                     <div className='text-h6 md:text-h5 font-[500] text-gray-200'>Wallet</div>

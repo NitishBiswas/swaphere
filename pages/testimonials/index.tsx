@@ -1,4 +1,5 @@
 import ParentDiv from '@/components/ParentDiv'
+import Head from 'next/head';
 import React from 'react'
 
 const REVIEW_LIST = [
@@ -43,6 +44,9 @@ const REVIEW_LIST = [
 const Testimonials = () => {
     return (
         <div className='w-full py-[60px] bg-[#f7f7f7] min-h-[50vh]'>
+            <Head>
+                <title>User Testimonials | SwapHere</title>
+            </Head>
             <ParentDiv>
                 <div className='w-full p-[10px] lg:p-[20px] bg-white shadow flex flex-col gap-[10px]'>
                     <div className='text-h6 md:text-h5 font-[500] text-gray-200'>User Testimonials</div>

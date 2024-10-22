@@ -2,6 +2,7 @@ import Loading from '@/components/Loading';
 import ParentDiv from '@/components/ParentDiv'
 import { selectAuthToken } from '@/redux/features/authSlice';
 import moment from 'moment'
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React from 'react'
 import { useSelector } from 'react-redux';
@@ -17,6 +18,9 @@ const ProfileInfo = () => {
 
     return (
         <div className='w-full py-[60px] bg-[#f7f7f7] min-h-[50vh]'>
+            <Head>
+                <title>Profile Info | SwapHere</title>
+            </Head>
             <ParentDiv>
                 <div className='w-full p-[10px] lg:p-[20px] bg-white shadow flex flex-col gap-[10px]'>
                     <div className='text-h6 md:text-h5 text-gray-200'>Hi, <span className='font-[900] text-primary'>Nitish Biswas</span></div>
